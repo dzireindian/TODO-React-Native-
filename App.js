@@ -30,8 +30,7 @@ const Todo = (props) => ( <
             color: "white",
             paddingRight: 10,
         }
-    } >
-    { " " } { props.todo.dueDate } { " " } <
+    } > { " " } { props.todo.dueDate } { " " } <
     /Text>{" "} <
     Text style = {
         {
@@ -39,16 +38,17 @@ const Todo = (props) => ( <
             fontWeight: "300",
             color: "white",
         }
-    } >
-    { " " } { props.todo.text } { " " } <
+    } > { " " } { props.todo.text } { " " } <
     /Text>{" "} <
     TouchableOpacity style = {
-        [styles.button] }
+        [styles.button]
+    }
     onPress = { props.onDelete } >
     <
     Text style = {
-        ([styles.buttontext], [styles.removebutton]) } > Remove < /Text>{" "} <
-    /TouchableOpacity>{" "} <
+        ([styles.buttontext], [styles.removebutton])
+    } > Remove < /Text>{" "} < /
+    TouchableOpacity > { " " } <
     /View>
 );
 
@@ -115,19 +115,23 @@ export default class App extends React.Component {
     render() {
         return ( <
             View style = {
-                [styles.appContainer, styles.fill] } >
+                [styles.appContainer, styles.fill]
+            } >
             <
             Text style = {
-                [styles.heading] } > ToDo List < /Text>{" "} <
+                [styles.heading]
+            } > ToDo List < /Text>{" "} <
             TextInput style = {
-                [styles.input] }
+                [styles.input]
+            }
             placeholder = "Enter your task..."
-            placeholderTextColor = "grey"
+            placeholderTextColor = "#41444b"
             onChangeText = { this.takeInput }
             value = { this.state.text }
             />{" "} <
             View style = {
-                [styles.appdate] } >
+                [styles.appdate]
+            } >
             <
             DatePicker style = {
                 {
@@ -159,35 +163,40 @@ export default class App extends React.Component {
             onDateChange = { this.dateChange }
             />{" "} <
             TouchableOpacity style = {
-                [styles.addbutton, styles] }
+                [styles.addbutton, styles]
+            }
             onPress = {
-                () => this.addTodo(this.state.text, this.state.dueDate) } >
+                () =>
+                this.addTodo(this.state.text, this.state.dueDate)
+            } >
             <
             Text style = {
-                [styles.buttontext] } > ADD < /Text>{" "} <
-            /TouchableOpacity>{" "} <
+                [styles.buttontext]
+            } > ADD < /Text>{" "} < /
+            TouchableOpacity > { " " } <
             /View>{" "} <
             ScrollView style = {
                 {
-                    backgroundColor: "black",
+                    backgroundColor: "#fddb3a",
                     marginBottom: 10,
                 }
-            } >
-            { " " } {
+            } > { " " } {
                 this.state.todos.map((todo) => ( <
                     View >
                     <
                     Todo onTodoClick = {
-                        () => this.toggleTodo(todo.id) }
+                        () => this.toggleTodo(todo.id)
+                    }
                     todo = { todo }
                     onDelete = {
-                        () => this.removeTodo(todo.id) }
-                    />{" "} <
-                    /View>
+                        () => this.removeTodo(todo.id)
+                    }
+                    />{" "} < /
+                    View >
                 ))
             } { " " } <
-            /ScrollView>{" "} <
-            /View>
+            /ScrollView>{" "} < /
+            View >
         );
     }
 }
@@ -207,7 +216,7 @@ const styles = StyleSheet.create({
     },
     fill: {
         flex: 1,
-        backgroundColor: "black",
+        backgroundColor: "#f6f4e6",
     },
 
     addbutton: {
@@ -239,7 +248,7 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         fontSize: 30,
         fontWeight: "300",
-        color: "white",
+        color: "#52575d",
     },
     input: {
         height: 40,
@@ -249,12 +258,12 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         fontWeight: "300",
         fontSize: 20,
-        color: "white",
+        color: "#41444b",
     },
     buttontext: {
         fontWeight: "300",
         fontSize: 18,
-        color: "white",
+        color: "#41444b",
         textTransform: "uppercase",
     },
     removebutton: {
