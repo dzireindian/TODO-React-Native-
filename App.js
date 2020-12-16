@@ -13,6 +13,10 @@ import Constants from "expo-constants";
 import DatePicker from "react-native-datepicker";
 
 let id = 0;
+var date = new Date().getDate();
+var month = new Date().getMonth() + 1;
+var year = new Date().getFullYear();
+let mindate = date + "-" + month + "-" + year;
 
 const Todo = (props) => ( <
     View style = { styles.todoContainer } >
@@ -20,35 +24,21 @@ const Todo = (props) => ( <
     CheckBox checked = { props.todo.checked }
     onPress = { props.onTodoClick }
     style = {
-        {
-            paddingRight: 0,
-        }
-    }
-    />{" "} <
+        { paddingRight: 0 } }
+    /> <
     Text style = {
-        {
-            color: "white",
-            paddingRight: 10,
-        }
-    } > { " " } { props.todo.dueDate } { " " } <
-    /Text>{" "} <
+        { color: "white", paddingRight: 10 } } > { props.todo.dueDate } <
+    /Text> <
     Text style = {
-        {
-            fontSize: 20,
-            fontWeight: "300",
-            color: "white",
-        }
-    } > { " " } { props.todo.text } { " " } <
-    /Text>{" "} <
+        { fontSize: 20, fontWeight: "300", color: "white" } } > { props.todo.text } <
+    /Text> <
     TouchableOpacity style = {
-        [styles.button]
-    }
+        [styles.button] }
     onPress = { props.onDelete } >
     <
     Text style = {
-        ([styles.buttontext], [styles.removebutton])
-    } > Remove < /Text>{" "} < /
-    TouchableOpacity > { " " } <
+        ([styles.buttontext], [styles.removebutton]) } > Remove < /Text> <
+    /TouchableOpacity> <
     /View>
 );
 
@@ -59,37 +49,29 @@ export default class App extends React.Component {
             todos: [],
             text: "",
             dueDate: "",
+            mindate: mindate,
         };
     }
 
     addTodo(text, date) {
-        if (text !== "") {
+        if (text !== "" && date != "") {
             id++;
             this.setState({
                 todos: [
                     ...this.state.todos,
-                    {
-                        id: id,
-                        text: text,
-                        checked: false,
-                        dueDate: date,
-                    },
+                    { id: id, text: text, checked: false, dueDate: date },
                 ],
                 text: "",
+                dueDate: "",
             });
         }
     }
-
     takeInput = (input) => {
-        this.setState({
-            text: input,
-        });
+        this.setState({ text: input });
     };
 
     dateChange = (date) => {
-        this.setState({
-            dueDate: date,
-        });
+        this.setState({ dueDate: date });
     };
 
     removeTodo(id) {
@@ -115,34 +97,29 @@ export default class App extends React.Component {
     render() {
         return ( <
             View style = {
-                [styles.appContainer, styles.fill]
-            } >
+                [styles.appContainer, styles.fill] } >
             <
             Text style = {
-                [styles.heading]
-            } > ToDo List < /Text>{" "} <
+                [styles.heading] } > ToDo List < /Text>
+
+            <
             TextInput style = {
-                [styles.input]
-            }
+                [styles.input] }
             placeholder = "Enter your task..."
-            placeholderTextColor = "#41444b"
+            placeholderTextColor = "grey"
             onChangeText = { this.takeInput }
             value = { this.state.text }
-            />{" "} <
+            /> <
             View style = {
-                [styles.appdate]
-            } >
+                [styles.appdate] } >
             <
             DatePicker style = {
-                {
-                    width: 200,
-                }
-            }
+                { width: 200 } }
             date = { this.state.dueDate }
             mode = "date"
             placeholder = "select date"
             format = "DD-MM-YYYY"
-            minDate = "01-01-2020"
+            minDate = { this.state.mindate }
             maxDate = "01-01-2100"
             confirmBtnText = "Confirm"
             cancelBtnText = "Cancel"
@@ -161,42 +138,32 @@ export default class App extends React.Component {
                 }
             }
             onDateChange = { this.dateChange }
-            />{" "} <
+            /> <
             TouchableOpacity style = {
-                [styles.addbutton, styles]
-            }
+                [styles.addbutton, styles] }
             onPress = {
-                () =>
-                this.addTodo(this.state.text, this.state.dueDate)
-            } >
+                () => this.addTodo(this.state.text, this.state.dueDate) } >
             <
             Text style = {
-                [styles.buttontext]
-            } > ADD < /Text>{" "} < /
-            TouchableOpacity > { " " } <
-            /View>{" "} <
+                [styles.buttontext] } > ADD < /Text> <
+            /TouchableOpacity> <
+            /View> <
             ScrollView style = {
-                {
-                    backgroundColor: "#fddb3a",
-                    marginBottom: 10,
-                }
-            } > { " " } {
+                { backgroundColor: "black", marginBottom: 10 } } > {
                 this.state.todos.map((todo) => ( <
                     View >
                     <
                     Todo onTodoClick = {
-                        () => this.toggleTodo(todo.id)
-                    }
+                        () => this.toggleTodo(todo.id) }
                     todo = { todo }
                     onDelete = {
-                        () => this.removeTodo(todo.id)
-                    }
-                    />{" "} < /
-                    View >
+                        () => this.removeTodo(todo.id) }
+                    /> <
+                    /View>
                 ))
-            } { " " } <
-            /ScrollView>{" "} < /
-            View >
+            } <
+            /ScrollView> <
+            /View>
         );
     }
 }
@@ -216,7 +183,7 @@ const styles = StyleSheet.create({
     },
     fill: {
         flex: 1,
-        backgroundColor: "#f6f4e6",
+        backgroundColor: "black",
     },
 
     addbutton: {
@@ -230,10 +197,7 @@ const styles = StyleSheet.create({
         marginRight: "auto",
 
         backgroundColor: "#2AC062",
-        shadowOffset: {
-            height: 10,
-            width: 0,
-        },
+        shadowOffset: { height: 10, width: 0 },
         shadowRadius: 20,
     },
 
@@ -248,7 +212,7 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         fontSize: 30,
         fontWeight: "300",
-        color: "#52575d",
+        color: "white",
     },
     input: {
         height: 40,
@@ -258,12 +222,12 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         fontWeight: "300",
         fontSize: 20,
-        color: "#41444b",
+        color: "white",
     },
     buttontext: {
         fontWeight: "300",
         fontSize: 18,
-        color: "#41444b",
+        color: "white",
         textTransform: "uppercase",
     },
     removebutton: {
