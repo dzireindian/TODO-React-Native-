@@ -134,7 +134,7 @@ export default class App extends React.Component {
             <Text style={[styles.buttontext]}>ADD</Text>
           </TouchableOpacity>
         </View>
-        <ScrollView style={{ backgroundColor: "black", marginBottom: 10 }}>
+        <ScrollView style={{ backgroundColor: "#c5a880", marginBottom: 10 }}>
           {this.state.todos.map((todo) => (
             <View>
               <Todo
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
   },
   fill: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: "#c5a880",
   },
 
   addbutton: {
